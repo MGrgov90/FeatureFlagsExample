@@ -1,7 +1,10 @@
 using Microsoft.FeatureManagement;
+using Microsoft.FeatureManagement.FeatureFilters;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddFeatureManagement();
+builder.Logging.AddConsole();
+builder.Services.AddFeatureManagement()
+    .AddFeatureFilter<PercentageFilter>();
 // Add services to the container.
 
 builder.Services.AddControllers();

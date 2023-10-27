@@ -25,18 +25,19 @@ namespace FeatureFlags.Http.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public async Task<ActionResult<IEnumerable<WeatherForecast>>> Get(CancellationToken cancellationToken)
         {
-            if (await _featureManager.IsEnabledAsync("ForecastEnabled"))
+            if (await _featureManager.IsEnabledAsync("LoggingEnabled"))
             {
-                return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                {
-                    Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                    TemperatureC = Random.Shared.Next(-20, 55),
-                    Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-                })
-                .ToArray();
+                _logger.LogInformation($"This is test log {DateTime.UtcNow}");
             }
-            else
-                return BadRequest("feature not enabled");
+
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+
         }
     }
 }
