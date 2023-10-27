@@ -1,7 +1,8 @@
+using FeatureFlags.Http;
 using Microsoft.FeatureManagement;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddFeatureManagement();
+builder.Services.AddFeatureManagement().AddFeatureFilter<MyCustomFilter>();
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -10,4 +10,5 @@ namespace FeatureFlags.Http
 
         public string? Summary { get; set; }
     }
+
 }
